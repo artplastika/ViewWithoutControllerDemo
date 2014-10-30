@@ -6,9 +6,16 @@ namespace ViewWithoutControllerDemo.Controllers
     {
         public ActionResult Get(string viewPath)
         {
-            var extractedPath = viewPath.Split('/');
-            this.ControllerContext.RouteData.Values["controller"] = extractedPath[0];
-            this.ControllerContext.RouteData.Values["action"] = extractedPath[1];
+            string controllerName = "Home";
+            string actionName = "Index";
+            if (!string.IsNullOrWhiteSpace(viewPath)) 
+            {
+                var extractedPath = viewPath.Split('/');
+                controllerName = extractedPath[0];
+                actionName = (extractedPath.Length > 1 && !string.IsNullOrWhiteSpace(extractedPath[1])) ? extractedPath[1] : "Index";
+            }
+            this.ControllerContext.RouteData.Values["controller"] = controllerName;
+            this.ControllerContext.RouteData.Values["action"] = actionName;
             return View();
         }
     }

@@ -11,7 +11,7 @@ namespace ViewWithoutControllerDemo
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{*viewPath}",
+                url: "{*viewPath}",
                 defaults: new { controller = "Default", action = "Get", id = UrlParameter.Optional }
             );
         }
